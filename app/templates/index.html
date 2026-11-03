@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="theme-color" content="#050810">
+<title>APEX MASTER — V7</title>
+<link rel="stylesheet" href="/static/css/master.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- MAIN DASHBOARD -->
+<div id="mainScreen" class="screen active">
+  
+  <!-- PREMIUM TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="logo-container">
+        <svg class="logo-svg" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#14b8a6"/>
+              <stop offset="100%" stop-color="#0f766e"/>
+            </linearGradient>
+          </defs>
+          <path d="M50,15 L85,35 L85,65 Q85,85 50,95 Q15,85 15,65 L15,35 Z" fill="url(#logo-grad)"/>
+          <circle cx="50" cy="50" r="14" fill="#050810"/>
+          <circle cx="50" cy="50" r="7" fill="#5eead4"/>
+        </svg>
+      </div>
+      <div class="title-container">
+        <span class="app-title">APEX</span>
+        <span class="app-subtitle">SOVEREIGN</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div id="connectionStatus" class="status-badge live">
+        <span class="dot"></span> LIVE
+      </div>
+      <button class="icon-btn" onclick="refreshDevices()" title="Refresh">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- PREMIUM NAV -->
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('devices')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+      Devices
+    </button>
+    <button class="nav-tab" onclick="showTab('add')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Device
+    </button>
+    <button class="nav-tab" onclick="showTab('audit')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
+      Audit Log
+    </button>
+  </nav>
+
+  <!-- DEVICES TAB -->
+  <div id="tab-devices" class="tab-content active">
+    <div class="section-header">
+      <h2>Live Control</h2>
+      <span class="device-count" id="deviceCount">0 Devices</span>
+    </div>
+    <div id="devicesGrid" class="devices-grid">
+      <!-- Skeleton -->
+      <div class="device-card skeleton">
+        <div class="skeleton-line" style="width: 40%; height: 20px;"></div>
+        <div class="skeleton-line" style="width: 60%; height: 12px;"></div>
+        <div class="skeleton-grid">
+          <div class="skeleton-box"></div>
+          <div class="skeleton-box"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD DEVICE TAB -->
+  <div id="tab-add" class="tab-content">
+    <div class="add-panel">
+      <h2>Pair New Device</h2>
+      <p class="info">Scan the QR code on the child's phone to install the companion app.</p>
+      
+      <div class="input-group">
+        <label>Device Name</label>
+        <input id="newChildName" placeholder="e.g. Rahim's Phone" class="input-wide">
+      </div>
+      
+      <button class="btn btn-primary btn-glow" onclick="createPairing()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;margin-right:8px"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Generate QR Code
+      </button>
+      
+      <div id="qrContainer" class="qr-container"></div>
+    </div>
+  </div>
+
+  <!-- AUDIT TAB -->
+  <div id="tab-audit" class="tab-content">
+    <div class="section-header">
+      <h2>Audit History</h2>
+    </div>
+    <div class="input-group" style="max-width: 400px; margin-bottom: 24px;">
+      <select id="auditDevice" class="input-wide">
+        <option value="">Select a device...</option>
+      </select>
+      <button class="btn btn-secondary" onclick="loadAudit()" style="margin-top:10px;width:100%">Load Log</button>
+    </div>
+    <div id="auditLog" class="audit-log"></div>
+  </div>
+</div>
+
+<!-- PREMIUM MODAL -->
+<div id="deviceModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modalTitle">Device Control</h2>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modalBody" class="modal-body"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast">
+  <div class="toast-content">
+    <span id="toastMessage"></span>
+  </div>
+</div>
+
+<script src="/static/js/master.js"></script>
+</body>
+</html>

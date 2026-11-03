@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>APEX Parental Enrollment</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header>
+  <h1>👨‍👩‍👧 APEX Parental</h1>
+  <p>Child Device Enrollment</p>
+</header>
+<main>
+  <section>
+    <h2>📱 Install Companion App</h2>
+    <p>Pairing Token: <code class="token">{{ token }}</code></p>
+
+    <div class="steps">
+      <div class="step">
+        <h3>Step 1 — Download APK</h3>
+        <a class="bigbtn" href="/api/apk/device?token={{ token }}">⬇ Download Companion APK</a>
+      </div>
+      <div class="step">
+        <h3>Step 2 — Install</h3>
+        <p class="small">Settings → Allow unknown sources → Install APK</p>
+      </div>
+      <div class="step">
+        <h3>Step 3 — Open & Pair</h3>
+        <a class="bigbtn secondary" href="apex://pair?token={{ token }}">▶ Open Companion App</a>
+      </div>
+      <div class="step">
+        <h3>Step 4 — Consent</h3>
+        <p class="small">APK-এ disclose করা consent পড়ে "I Agree" চাপুন</p>
+      </div>
+      <div class="step">
+        <h3>Step 5 — Auto Connected</h3>
+        <p class="small">3 সেকেন্ডেই dashboard-এ device দেখাবে</p>
+      </div>
+    </div>
+
+    <div class="warning">
+      ⚠️ Parental use only. Not on Play Store. Uninstall anytime from Settings.
+    </div>
+  </section>
+</main>
+<script>
+navigator.clipboard?.writeText("{{ token }}");
+localStorage.setItem("apex_pending_token", "{{ token }}");
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>APEX V3 — Parental Control</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header>
+  <h1>👨‍👩‍👧 APEX SOVEREIGN V3</h1>
+  <p>Parental Control Dashboard</p>
+</header>
+<main>
+  <section id="auth">
+    <h2>Guardian Registration / Login</h2>
+    <input id="email" type="email" placeholder="email@example.com">
+    <input id="name" placeholder="Your name">
+    <input id="pass" type="password" placeholder="password (min 6)">
+    <label class="consent-label">
+      <input type="checkbox" id="consent">
+      আমি guardian consent দিয়েছি — parental control disclosure পড়েছি
+    </label>
+    <div class="btn-row">
+      <button onclick="register()">Register</button>
+      <button onclick="login()">Login</button>
+    </div>
+    <p id="autherr" class="err"></p>
+  </section>
+
+  <section id="panel" style="display:none">
+    <div class="topbar">
+      <h2>👶 My Children</h2>
+      <a href="/dashboard" class="link">⚡ Pro Dashboard</a>
+      <button onclick="logout()" class="secondary">Logout</button>
+    </div>
+    <div class="input-row">
+      <input id="cname" placeholder="Child name (e.g. Rahim)">
+      <button onclick="createPairing()">➕ Add Child (QR)</button>
+    </div>
+    <div id="qrbox"></div>
+    <ul id="childlist"></ul>
+    <button onclick="refresh()" class="secondary">🔄 Refresh</button>
+  </section>
+</main>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
